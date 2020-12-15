@@ -1,0 +1,7 @@
+{
+  "name": "chachas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
