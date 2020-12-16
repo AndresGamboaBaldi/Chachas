@@ -62,10 +62,10 @@ export class FirestoreService {
     return this.angularFirestore.collection("Motos").snapshotChanges();
   }
   public getPedidos() {
-    return this.angularFirestore.collection("pedidos").snapshotChanges();
+    return this.angularFirestore.collection("Pedidos").snapshotChanges();
   }
   public getSucursales() {
-    return this.angularFirestore.collection("sucursales").snapshotChanges();
+    return this.angularFirestore.collection("Sucursales").snapshotChanges();
   }
   public updateData(collection, id, data) {
     return this.angularFirestore.collection(collection).doc(id).update(data);

@@ -138,7 +138,7 @@ export class MapsPage implements OnInit {
   }
   
   addLocation(sucursal : MarkerOptions){
-    this.firestoreService.insertData('sucursales', sucursal.position.lat, sucursal.position.lng, sucursal.nombre, sucursal.direccion, sucursal.telefono, sucursal.horario, sucursal.imagen);
+    this.firestoreService.insertData('Sucursales', sucursal.position.lat, sucursal.position.lng, sucursal.nombre, sucursal.direccion, sucursal.telefono, sucursal.horario, sucursal.imagen);
   }
 
   handleFileInput(files: FileList) {
