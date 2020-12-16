@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { Injectable } from "@angular/core";
 
 import { AngularFirestore } from "@angular/fire/firestore";
@@ -22,7 +21,6 @@ export class FirestoreService {
         imageURL: imagen
     });
   }
-
   public insertMoto(collection, id, nombre) {
     this.angularFirestore.doc(collection + '/' + id).set({ 
       position: {
@@ -34,7 +32,6 @@ export class FirestoreService {
       flogin: true,
     });
   }
-
   public insertPedido() {
     this.angularFirestore.doc("Pedidos" + '/' + this.angularFirestore.createId()).set({ 
       position: {

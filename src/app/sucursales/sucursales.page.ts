@@ -1,12 +1,10 @@
 import { Component, OnInit, NgZone, ViewChild, } from "@angular/core";
-import { Geolocation} from "@ionic-native/geolocation/ngx";
+import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { IonSlides, NavController, ToastController, LoadingController, } from "@ionic/angular";
 import { GoogleMaps, MarkerOptions, } from "@ionic-native/google-maps";
-import {  AngularFirestore, } from "@angular/fire/firestore";
-import { NativeGeocoder} from "@ionic-native/native-geocoder/ngx";
 import { FirestoreService } from "../services/firestore.service";
+import { GettersService } from "../services/getters.service";
 declare var google;
-//let uid = 'SUCURSAL TEST';
 
 @Component({
   selector: "app-sucursales",
@@ -32,12 +30,9 @@ export class SucursalesPage implements OnInit {
     private geolocation: Geolocation,
     public zone: NgZone,
     public navCtrl: NavController,
-    private googleMaps: GoogleMaps,
-    private database: AngularFirestore,
-    private nativeGeocoder: NativeGeocoder,
     private firestoreService: FirestoreService,
     public toastCtrl: ToastController,
-    private loadingCtrl: LoadingController
+    private gettersService: GettersService
   ) { }
 
   ngOnInit() {
@@ -46,7 +41,7 @@ export class SucursalesPage implements OnInit {
     this.getMotos();
     this.getPedidos();
   }
-  insertPedidoPrueba(){
+  insertPedidoPrueba() {
     this.firestoreService.insertPedido();
   }
   loadMap() {
@@ -59,16 +54,7 @@ export class SucursalesPage implements OnInit {
         );
         this.lat = resp.coords.latitude.toString();
         this.long = resp.coords.longitude.toString();
-        let mapOptions = {
-          center: latLng,
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-        };
-
-        this.map = new google.maps.Map(
-          document.getElementById("map1"),
-          mapOptions
-        );
+        this.loadMapOptions(latLng);
         this.map.addListener("tilesloaded", () => {
           this.lat = this.map.center.lat();
           this.long = this.map.center.lng();
@@ -79,38 +65,40 @@ export class SucursalesPage implements OnInit {
         console.log("Error getting location", error);
       });
   }
+  private loadMapOptions(latLng: any) {
+    let mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+    };
+    this.map = new google.maps.Map(
+      document.getElementById("map1"),
+      mapOptions
+    );
+  }
 
-  addMaker(itemMarker: MarkerOptions) {
+  addMaker(itemMarker: MarkerOptions, icon) {
     const marker = new google.maps.Marker({
       position: { lat: itemMarker.position.lat, lng: itemMarker.position.lng },
       map: this.map,
       title: itemMarker.name,
       text: itemMarker.address,
       img: itemMarker.image,
-      icon: "../assets/icon/tienda.png"
-    });
-    return marker;
-  }
-  addMakerMotos(itemMarker: MarkerOptions) {
-    const marker = new google.maps.Marker({
-      position: { lat: itemMarker.position.lat, lng: itemMarker.position.lng },
-      map: this.map,
-      title: itemMarker.nombreDeMoto,
-      icon: "../assets/icon/repartidor.png"
+      icon: icon
     });
     return marker;
   }
   loadMarkers() {
     this.getLocations();
     this.markers.forEach((marker) => {
-      const markerObj = this.addMaker(marker);
+      const markerObj = this.addMaker(marker, "../assets/icon/tienda.png");
       marker.markerObj = markerObj;
       this.addInfoWindowToMarker(markerObj);
     });
 
     this.getMotos();
     this.motos.forEach((marker) => {
-      const markerObj = this.addMakerMotos(marker);
+      const markerObj = this.addMaker(marker, "../assets/icon/repartidor.png");
       marker.markerObj = markerObj;
     });
   }
@@ -122,43 +110,16 @@ export class SucursalesPage implements OnInit {
 
   getLocations() {
     this.firestoreService.getSucursales().subscribe((sucursalesArray) => {
-      this.markers = [];
-      sucursalesArray.forEach((sucursal: any) => {
-        let sucursalData = sucursal.payload.doc.data();
-        let sucursalID = sucursal.payload.doc.id;
-        this.markers.push({
-          id: sucursalID,
-          position: {
-            lat: Number(sucursalData.position.lat),
-            lng: Number(sucursalData.position.lng),
-          },
-          name: sucursalData.name,
-          address: sucursalData.address,
-          telephone: sucursalData.telephone,
-          attention: sucursalData.attention,
-          imageURL: sucursalData.imageURL
-        });
-      });
+      this.markers = this.gettersService.loadSucursales(sucursalesArray);
     });
   }
   getMotos() {
     this.firestoreService.getMotos().subscribe((motosArray) => {
-      this.motos = [];
-      motosArray.forEach((moto: any) => {
-        let motoData = moto.payload.doc.data();
-        this.motos.push({
-          id: moto.payload.doc.id,
-          position: {
-            lat: Number(motoData.position.lat),
-            lng: Number(motoData.position.lng),
-          },
-          nombreDeMoto: motoData.nombreDeMoto,
-          estado: motoData.estado
-        });
-      });
+      this.motos = this.gettersService.loadMotos(motosArray);
       this.getPedidos();
     });
   }
+
   doRefresh(event) {
     this.loadMap();
     setTimeout(() => {
@@ -194,7 +155,7 @@ export class SucursalesPage implements OnInit {
       });
     });
   }
-  orderNeedMoto(pedido){
+  orderNeedMoto(pedido) {
     return pedido.estado === "Listo para recoger" && pedido.moto === ""
   }
   assignMoto(pedido) {
@@ -202,7 +163,7 @@ export class SucursalesPage implements OnInit {
     let pedidoData = pedido.payload.doc.data();
     let { latSucursal, lngSucursal } = this.getPositionSucursal(pedidoData.sucursal);
     let motoasignada = this.calculateNearestMoto(latSucursal, lngSucursal);
-    if(this.noMotoAvailable(motoasignada)){
+    if (this.noMotoAvailable(motoasignada)) {
       return
     }
     this.updateMotoStateLocally(motoasignada);
@@ -244,7 +205,7 @@ export class SucursalesPage implements OnInit {
         }
       }
     });
-    if(!foundmoto){
+    if (!foundmoto) {
       return ""
     }
     return motoasignada;
