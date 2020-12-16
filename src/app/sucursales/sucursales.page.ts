@@ -47,8 +47,7 @@ export class SucursalesPage implements OnInit {
     this.getPedidos();
   }
   insertPedidoPrueba(){
-    this.firestoreService.insertPedido(this.idpruebapedido);
-    this.idpruebapedido ="";
+    this.firestoreService.insertPedido();
   }
   loadMap() {
     this.geolocation

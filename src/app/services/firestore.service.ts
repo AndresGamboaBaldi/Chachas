@@ -35,8 +35,8 @@ export class FirestoreService {
     });
   }
 
-  public insertPedido(id) {
-    this.angularFirestore.doc("pedidos" + '/' + id).set({ 
+  public insertPedido() {
+    this.angularFirestore.doc("Pedidos" + '/' + this.angularFirestore.createId()).set({ 
       position: {
         lat: "-17.34",
         lng: "-66.18",
