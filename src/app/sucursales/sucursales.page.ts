@@ -206,7 +206,7 @@ export class SucursalesPage implements OnInit {
       return
     }
     this.updateMotoStateLocally(motoasignada);
-    this.firestoreService.updateData("pedidos", idPedido, { "moto": motoasignada });
+    this.firestoreService.updateData("Pedidos", idPedido, { "moto": motoasignada });
     this.firestoreService.updateData("Motos", motoasignada, { "estado": "ocupado" });
   }
   private updateMotoStateLocally(motoasignada: any) {
