@@ -139,6 +139,7 @@ export class GestionPedidoPage implements OnInit {
   }
 
   obtener_pedido_por_moto(map: any, moto: any) {
+    this.productos = [];
     this.pedidos.forEach((pedido) => {
       if (pedido.moto == this.id) {
         const p_markerObj = this.addMaker(pedido, map, "../assets/icon/home1.png");
@@ -155,9 +156,8 @@ export class GestionPedidoPage implements OnInit {
 
   private setPedidoInfo(pedido: MarkerOptions) {
     (document.getElementById("idPedido") as HTMLElement).innerHTML = " \t " + pedido.pedido.toUpperCase();
-    (document.getElementById("desc") as HTMLElement).innerHTML = "<b>Productos: </b>" + pedido.productos;
     (document.getElementById("fechaPedido") as HTMLElement).innerHTML = " \t Fecha : " + pedido.fecha.toDate().toLocaleDateString('en-GB');
-    (document.getElementById("fechaCliente") as HTMLElement).innerHTML = " \t Hora: " + pedido.fecha.toLocaleTimeString();
+    (document.getElementById("fechaCliente") as HTMLElement).innerHTML = " \t Hora: " + pedido.fecha.toDate().toLocaleTimeString();
     (document.getElementById("nombreCliente") as HTMLElement).innerHTML = " \t Nombre : " + pedido.nombre;
     (document.getElementById("nitCliente") as HTMLElement).innerHTML = " \t NIT : " + pedido.nit;
     (document.getElementById("direccionCliente") as HTMLElement).innerHTML = " \t Dirección : " + pedido.direccion;
