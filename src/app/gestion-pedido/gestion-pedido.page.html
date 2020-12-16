@@ -30,7 +30,19 @@
         <ion-card-content > 
           <ion-icon name="receipt-outline"> </ion-icon>
             <span id="idPedido"></span>        
-            <p><span id="desc"></span> </p>     
+            <p><span id="desc"></span> </p>    
+            <ion-card-subtitle id="fechaPedido"></ion-card-subtitle>
+            <ion-card-subtitle id="horaPedido"></ion-card-subtitle>
+            <ion-card-subtitle id="nombreCliente"></ion-card-subtitle>
+            <ion-card-subtitle id="nitCliente"></ion-card-subtitle>
+            <ion-card-subtitle id="direccionCliente"></ion-card-subtitle>
+            <ion-card-subtitle id="telefonoCliente"></ion-card-subtitle>
+            <ion-card-subtitle id="sucursalPedido"></ion-card-subtitle>
+            <ion-list>
+              <ion-card-subtitle><b>Productos: </b></ion-card-subtitle>
+              <ion-item *ngFor="let producto of productos">
+                <ion-card-subtitle>{{producto.nombre}}</ion-card-subtitle>
+              </ion-item> 
         </ion-card-content>
           <ion-card-content>
             <p>  <span id= "total"> </span>  </p >          

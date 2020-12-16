@@ -25,6 +25,7 @@ export class GestionPedidoPage implements OnInit {
   driver: any;
   moto: any;
   pedido: string;
+  productos = [];
 
   constructor(
     private geolocation: Geolocation,
@@ -81,7 +82,7 @@ export class GestionPedidoPage implements OnInit {
   }
 
   getMotos() {
-    this.firestoreService.getMotos().subscribe((motosArray) => {
+    this.firestoreService.getSnapshotData("Motos").subscribe((motosArray) => {
       this.motos = [];
       motosArray.forEach((moto: any) => {
         if (moto.payload.doc.id === this.id) {
@@ -111,7 +112,7 @@ export class GestionPedidoPage implements OnInit {
   }
 
   getPedidos() {
-    this.firestoreService.getPedidos().subscribe((pedidosList) => {
+    this.firestoreService.getSnapshotData("Pedidos").subscribe((pedidosList) => {
       this.pedidos = [];
       pedidosList.forEach((pedido: any) => {
         let pedidoData = pedido.payload.doc.data();
@@ -142,13 +143,25 @@ export class GestionPedidoPage implements OnInit {
       if (pedido.moto == this.id) {
         const p_markerObj = this.addMaker(pedido, map, "../assets/icon/home1.png");
         pedido.p_markerObj = p_markerObj;
-        (document.getElementById("idPedido") as HTMLElement).innerHTML = " \t " + pedido.pedido.toUpperCase();
-        this.pedido = pedido.id.toUpperCase();
-
-        (document.getElementById("desc") as HTMLElement).innerHTML = " \t Productos : " + pedido.productos;
+        this.pedido = pedido.pedido.toUpperCase();
+        this.setPedidoInfo(pedido);
+        pedido.productos.forEach(producto => {
+          this.productos.push(producto);
+        });
         this.getRoute(new google.maps.LatLng(moto.position.lat, moto.position.lng), pedido.LatLngPedido);
       }
     });
+  }
+
+  private setPedidoInfo(pedido: MarkerOptions) {
+    (document.getElementById("idPedido") as HTMLElement).innerHTML = " \t " + pedido.pedido.toUpperCase();
+    (document.getElementById("desc") as HTMLElement).innerHTML = "<b>Productos: </b>" + pedido.productos;
+    (document.getElementById("fechaPedido") as HTMLElement).innerHTML = " \t Fecha : " + pedido.fecha.toDate().toLocaleDateString('en-GB');
+    (document.getElementById("fechaCliente") as HTMLElement).innerHTML = " \t Hora: " + pedido.fecha.toLocaleTimeString();
+    (document.getElementById("nombreCliente") as HTMLElement).innerHTML = " \t Nombre : " + pedido.nombre;
+    (document.getElementById("nitCliente") as HTMLElement).innerHTML = " \t NIT : " + pedido.nit;
+    (document.getElementById("direccionCliente") as HTMLElement).innerHTML = " \t Dirección : " + pedido.direccion;
+    (document.getElementById("telefonoCliente") as HTMLElement).innerHTML = " \t Teléfono : " + pedido.telefono;
   }
 
   private getRoute(start: String, end: String) {

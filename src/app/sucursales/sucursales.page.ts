@@ -41,9 +41,7 @@ export class SucursalesPage implements OnInit {
     this.getMotos();
     this.getPedidos();
   }
-  insertPedidoPrueba() {
-    this.firestoreService.insertPedido();
-  }
+ 
   loadMap() {
     this.geolocation
       .getCurrentPosition()
@@ -88,6 +86,7 @@ export class SucursalesPage implements OnInit {
     });
     return marker;
   }
+
   loadMarkers() {
     this.getLocations();
     this.markers.forEach((marker) => {
@@ -102,6 +101,7 @@ export class SucursalesPage implements OnInit {
       marker.markerObj = markerObj;
     });
   }
+
   async onSlideDidChange() {
     const currentSlide = await this.slides.getActiveIndex();
     const marker = this.markers[currentSlide];
@@ -109,12 +109,13 @@ export class SucursalesPage implements OnInit {
   }
 
   getLocations() {
-    this.firestoreService.getSucursales().subscribe((sucursalesArray) => {
+    this.firestoreService.getSnapshotData("Sucursales").subscribe((sucursalesArray) => {
       this.markers = this.gettersService.loadSucursales(sucursalesArray);
     });
   }
+
   getMotos() {
-    this.firestoreService.getMotos().subscribe((motosArray) => {
+    this.firestoreService.getSnapshotData("Motos").subscribe((motosArray) => {
       this.motos = this.gettersService.loadMotos(motosArray);
       this.getPedidos();
     });
@@ -127,7 +128,7 @@ export class SucursalesPage implements OnInit {
     }, 1000);
   }
   getPedidos() {
-    this.firestoreService.getPedidos().subscribe((pedidosList) => {
+    this.firestoreService.getSnapshotData("Pedidos").subscribe((pedidosList) => {
       this.pedidos = [];
       pedidosList.forEach((pedido: any) => {
         let pedidoData = pedido.payload.doc.data();
@@ -155,9 +156,11 @@ export class SucursalesPage implements OnInit {
       });
     });
   }
+
   orderNeedMoto(pedido) {
     return pedido.estado === "Listo para recoger" && pedido.moto === ""
   }
+
   assignMoto(pedido) {
     let idPedido = pedido.payload.doc.id;
     let pedidoData = pedido.payload.doc.data();
@@ -170,6 +173,7 @@ export class SucursalesPage implements OnInit {
     this.firestoreService.updateData("Pedidos", idPedido, { "moto": motoasignada });
     this.firestoreService.updateData("Motos", motoasignada, { "estado": "ocupado" });
   }
+
   private updateMotoStateLocally(motoasignada: any) {
     this.motos.forEach(moto => {
       if (moto.id === motoasignada) {
@@ -177,9 +181,11 @@ export class SucursalesPage implements OnInit {
       }
     });
   }
+
   private noMotoAvailable(motoasignada: any) {
     return motoasignada === "";
   }
+
   private getPositionSucursal(idsucursal) {
     let latSucursal;
     let lngSucursal;
@@ -191,6 +197,7 @@ export class SucursalesPage implements OnInit {
     });
     return { latSucursal, lngSucursal };
   }
+
   private calculateNearestMoto(latSucursal: any, lngSucursal: any) {
     var min = Number.MAX_VALUE;
     let motoasignada;
@@ -210,11 +217,13 @@ export class SucursalesPage implements OnInit {
     }
     return motoasignada;
   }
+
   private calculateDistance(lat1, lat2, lng1, lng2) {
     let distance;
     distance = Math.abs(Math.abs(Number(lat1)) - Math.abs(Number(lat2))) + Math.abs(Math.abs(Number(lng1)) - Math.abs(Number(lng2)));
     return distance;
   }
+
   addInfoWindowToMarker(marker) {
     let infoWindowContent = "<b>" + marker.title + "</b><br/>" + marker.text;
 
@@ -223,15 +232,11 @@ export class SucursalesPage implements OnInit {
     });
 
     marker.addListener("click", () => {
-      this.closeAllInfoWindows();
+      for (let window of this.infoWindows) {
+        window.close();
+      }
       infoWindow.open(this.map, marker);
     });
     this.infoWindows.push(infoWindow);
-  }
-
-  closeAllInfoWindows() {
-    for (let window of this.infoWindows) {
-      window.close();
-    }
   }
 }

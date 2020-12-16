@@ -23,7 +23,7 @@ export class OrdersPage implements OnInit {
   }
 
   getPedidos() {
-    this.firestoreService.getPedidos().subscribe((pedidosList) => {
+    this.firestoreService.getSnapshotData("Pedidos").subscribe((pedidosList) => {
       this.pedidos = [];
       pedidosList.forEach((pedido: any) => {
         let pedidoData = pedido.payload.doc.data();

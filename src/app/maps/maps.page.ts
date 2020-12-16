@@ -125,7 +125,7 @@ export class MapsPage implements OnInit {
     this.toHour = new Date().toTimeString;
   }
   addLocation(sucursal: MarkerOptions) {
-    this.firestoreService.insertData('Sucursales', sucursal.position.lat, sucursal.position.lng, sucursal.nombre, sucursal.direccion, sucursal.telefono, sucursal.horario, sucursal.imagen);
+    this.firestoreService.insertSucursal(sucursal.position.lat, sucursal.position.lng, sucursal.nombre, sucursal.direccion, sucursal.telefono, sucursal.horario, sucursal.imagen);
   }
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
