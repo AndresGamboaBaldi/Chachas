@@ -43,8 +43,10 @@ export class OrdersPage implements OnInit {
           nombre: pedidoData.nombre,
           productos: pedidoData.productos,
           sucursal: pedidoData.sucursal,
+          pedido: pedidoData.pedido,
+          fecha: pedidoData.fechahorapedido,
           telefono: pedidoData.telefono,
-          total: pedidoData.total
+          total: pedidoData.total,
         });
       });
     });

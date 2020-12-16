@@ -114,8 +114,7 @@ export class GestionPedidoPage implements OnInit {
     return marker;
   }
 
-
-  getPedidos() {
+getPedidos() {
     this.firestoreService.getPedidos().subscribe((pedidosList) => {
       this.pedidos = [];
       pedidosList.forEach((pedido: any) => {
@@ -133,7 +132,10 @@ export class GestionPedidoPage implements OnInit {
           nombre: pedidoData.nombre,
           productos: pedidoData.productos,
           sucursal: pedidoData.sucursal,
-          total: pedidoData.total
+          pedido: pedidoData.pedido,
+          fecha: pedidoData.fechahorapedido,
+          telefono: pedidoData.telefono,
+          total: pedidoData.total,
         });
       });
     });
@@ -144,7 +146,7 @@ export class GestionPedidoPage implements OnInit {
       if(pedido.moto  == this.id){
         const p_markerObj = this.addMaker(pedido, map, "../assets/icon/home1.png");
         pedido.p_markerObj = p_markerObj;
-        (document.getElementById("idPedido") as HTMLElement).innerHTML = " \t " + pedido.id.toUpperCase() ;
+        (document.getElementById("idPedido") as HTMLElement).innerHTML = " \t " + pedido.pedido.toUpperCase() ;
         this.pedido = pedido.id.toUpperCase();
 
         (document.getElementById("desc") as HTMLElement).innerHTML = " \t Productos : " + pedido.productos ;
