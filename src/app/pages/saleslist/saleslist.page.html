@@ -16,7 +16,10 @@
       <ion-card-subtitle color="black">Telefono: {{ sale.nit }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content *ngFor="let product of sale.productos">
-      {{ product.nombre }} {{ product.precio }} Bs.
+      ID producto: {{ product.id }} ---- Cantidad: {{ product.cantidad }}
+    </ion-card-content>
+    <ion-card-content *ngFor="let product of productos">
+      ID producto: {{ product.id }} ---- Cantidad: {{ product.cantidad }}
     </ion-card-content>
   </ion-card>
 </ion-content>

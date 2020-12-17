@@ -6,8 +6,14 @@ export interface Sale {
    nombre: string,
    usuario: string,
    direccion : string,
+   fechahorapedido: Date;
    telefono : number,
-   productos : Product[],
+   productos : [
+      {
+         id: string,
+         cantidad: number
+      }
+   ],
    nit : string,
    total : number
 }
