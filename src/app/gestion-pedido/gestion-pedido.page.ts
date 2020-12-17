@@ -157,7 +157,7 @@ export class GestionPedidoPage implements OnInit {
   private setPedidoInfo(pedido: MarkerOptions) {
     (document.getElementById("idPedido") as HTMLElement).innerHTML = " \t " + pedido.pedido.toUpperCase();
     (document.getElementById("fechaPedido") as HTMLElement).innerHTML = " \t Fecha : " + pedido.fecha.toDate().toLocaleDateString('en-GB');
-    (document.getElementById("fechaCliente") as HTMLElement).innerHTML = " \t Hora: " + pedido.fecha.toDate().toLocaleTimeString();
+    (document.getElementById("horaPedido") as HTMLElement).innerHTML = " \t Hora: " + pedido.fecha.toDate().toLocaleTimeString();
     (document.getElementById("nombreCliente") as HTMLElement).innerHTML = " \t Nombre : " + pedido.nombre;
     (document.getElementById("nitCliente") as HTMLElement).innerHTML = " \t NIT : " + pedido.nit;
     (document.getElementById("direccionCliente") as HTMLElement).innerHTML = " \t Dirección : " + pedido.direccion;

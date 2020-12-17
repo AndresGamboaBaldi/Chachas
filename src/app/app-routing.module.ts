@@ -10,10 +10,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'test',
-    loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
-  },
-  {
     path: 'accepted',
     loadChildren: () => import('./pages/accepted/accepted.module').then( m => m.AcceptedPageModule)
   },
