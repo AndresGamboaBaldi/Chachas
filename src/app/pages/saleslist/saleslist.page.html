@@ -14,12 +14,12 @@
       <ion-card-subtitle color="black">Comprador: {{ sale.usuario }}</ion-card-subtitle>
       <ion-card-subtitle color="black">NIT: {{ sale.nit }}</ion-card-subtitle>
       <ion-card-subtitle color="black">Telefono: {{ sale.nit }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">Productos:</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content *ngFor="let product of sale.productos">
-      ID producto: {{ product.id }} ---- Cantidad: {{ product.cantidad }}
-    </ion-card-content>
-    <ion-card-content *ngFor="let product of productos">
-      ID producto: {{ product.id }} ---- Cantidad: {{ product.cantidad }}
+      <ion-item *ngIf="products.get(product.id)!=null">
+        Nombre: {{ products.get(product.id).nombre }} -- Cantidad: {{ product.cantidad }}
+      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>

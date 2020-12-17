@@ -14,39 +14,32 @@ export class SaleslistPage implements OnInit {
 
   public sales = Array<Sale>();
   public sucursales = Array<Sucursal>();
-  public products = Array<Product>();
+  public products = new Map();
 
   constructor(public saleslistService: FirestoreService) { }
 
   ngOnInit() {
     this.getAllSales();
-    //this.getAllSucursales();
-    console.log(this.sucursales);
-    //this.getAllProducts();
   }
 
   getAllSales(): void {
     this.saleslistService.getSales().subscribe(sales => {
       this.sales = sales;
-    })
-  }
-  getAllSucursales(): void {
-    this.saleslistService.getSucursales().subscribe(sucursales => {
-      this.sucursales = sucursales;
+      this.getAllProducts();
     })
   }
 
-  getAllProducts() {
-    for (let i = 0; i < this.sucursales.length; i++) {
-      this.getProducts(this.sucursales[i].id);
-    }
+  getAllProducts(): void {
+    this.sales.forEach((sale) => {
+      sale.productos.forEach((producto) => {
+        this.getProduct(producto.id);
+      });
+    });
   }
 
-  getProducts(id: string): void {
-    this.saleslistService.getProductoSucursal(id).subscribe(products => {
-      for (let i = 0; i < products.length; i++) {
-        this.products.push(products[i]);
-      }
+  getProduct(id: string): void {
+    this.saleslistService.getProductID(id).subscribe(product => {
+      this.products.set(id.toString(), product);
     })
   }
 }

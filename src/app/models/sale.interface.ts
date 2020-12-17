@@ -15,5 +15,6 @@ export interface Sale {
       }
    ],
    nit : string,
-   total : number
+   total : number,
+   pedido: string
 }

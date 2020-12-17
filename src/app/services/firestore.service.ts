@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
 
-import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/firestore";
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from "@angular/fire/firestore";
 import { Sale } from 'src/app/models/sale.interface';
 import { map } from 'rxjs/operators';
 import { Product } from "../models/product.interface";
-import { Sucursal } from "../models/sucursal.interface";
 
 @Injectable({
   providedIn: "root",
@@ -12,10 +11,10 @@ import { Sucursal } from "../models/sucursal.interface";
 export class FirestoreService {
   private salesCollection: AngularFirestoreCollection<Sale>;
   private productsCollection: AngularFirestoreCollection<Product>;
-  private sucursalesCollection: AngularFirestoreCollection<Sucursal>;
+  private product: AngularFirestoreDocument<Product>;
+
   constructor(private angularFirestore: AngularFirestore) {
     this.salesCollection = angularFirestore.collection<Sale>('Pedidos');
-    //this.sucursalesCollection = angularFirestore.collection<Sucursal>('Inventario/comida/');
   }
   
   public getData(collection) {
@@ -35,13 +34,12 @@ export class FirestoreService {
       );
   }
 
-  public getSucursales() {
-    return this.sucursalesCollection.snapshotChanges()
+  public getProducts() {
+    return this.productsCollection.snapshotChanges()
       .pipe(
         map(actions =>
           actions.map(a => {
-            const data = a.payload.doc.data() as Sucursal;
-            console.log("pvtoos");
+            const data = a.payload.doc.data() as Product;
             const id = a.payload.doc.id;
             return { id, ...data };
           })
@@ -49,8 +47,20 @@ export class FirestoreService {
       );
   }
 
+  getProductID(id: string) {
+    this.product = this.angularFirestore.doc<Product>(`Comida/${id}`);
+    return this.product.snapshotChanges().pipe(map(action => {
+      if (action.payload.exists === false) {
+        return null;
+      } else {
+        const data = action.payload.data() as Product;
+        return data;
+      }
+    }));
+  }
+}
 
-  getProductoSucursal(id: string) {
+/* getProductoSucursal(id: string) {
     this.productsCollection = this.angularFirestore.collection<Product>(`Inventario/comida/${id}/`);
     return this.productsCollection.snapshotChanges()
       .pipe(
@@ -62,5 +72,4 @@ export class FirestoreService {
           })
         ) 
       );
-  }
-}
+  }*/
