@@ -26,7 +26,7 @@ export class GestionPedidoPage implements OnInit {
   moto: any;
   pedido: string;
   productos = [];
-
+  comida :any = [];
   constructor(
     private geolocation: Geolocation,
     public zone: NgZone,
@@ -133,11 +133,23 @@ export class GestionPedidoPage implements OnInit {
           fecha: pedidoData.fechahorapedido,
           telefono: pedidoData.telefono,
           total: pedidoData.total,
+          nit: pedidoData.nit,
         });
       });
     });
   }
-
+  /*getComida() {
+    this.firestoreService.getSnapshotData("Comida").subscribe((comidaList) => {
+      this.comida = [];
+      comidaList.forEach((comida: any) => {
+        let comidaData = comida.payload.doc.data();
+        this.comida.push({
+          id:comida.payload.doc.id,
+          nombre: comidaData.nombre
+        });
+      });
+    });
+  }*/
   obtener_pedido_por_moto(map: any, moto: any) {
     this.productos = [];
     this.pedidos.forEach((pedido) => {
