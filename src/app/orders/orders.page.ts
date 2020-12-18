@@ -114,7 +114,7 @@ export class OrdersPage implements OnInit {
   setBadgeColor(value: string) {
     switch (true) {
       case value === "Listo para recoger":
-        return "tertiary";
+        return "primary";
       case value === "Entregado":
         return "success";
       case value === "Pendiente":

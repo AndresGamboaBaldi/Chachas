@@ -2,7 +2,7 @@
   <ion-toolbar >
     <ion-row>
       <ion-menu-button position="floating" menu="main" class="menu"></ion-menu-button>
-      <ion-title class="titles"><b>PEDIDOS</b></ion-title>
+      <ion-title class="titles"><b>Pedidos</b></ion-title>
     </ion-row>
   </ion-toolbar>
 </ion-header>
@@ -33,9 +33,10 @@
             </ion-row>
           </ion-card-content>
         </ion-col>
-        <ion-col size="2">
-          <ion-icon id="moreInfo" size="large" *ngIf="pedido.estado == 'En camino'" button
-            (click)="checkOrderState(pedido.moto)" name="chevron-forward-outline"></ion-icon>
+        <ion-col size="2" style="vertical-align: middle; align-items: center; margin-top: auto; margin-bottom: auto;">
+          <button  id="moreInfo"  *ngIf="pedido.estado == 'En camino'" ion-button icon-only button (click)="checkOrderState(pedido.moto)">
+            <ion-icon name="chevron-forward-outline" ></ion-icon>       
+          </button>
         </ion-col>
       </ion-row>
     </ion-card>
