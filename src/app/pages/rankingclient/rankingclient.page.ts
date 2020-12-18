@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Cliente } from 'src/app/models/client.interface';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-rankingclient',
@@ -27,14 +26,14 @@ export class RankingclientPage implements OnInit {
         if ((this.ranking.findIndex(i => i.uid === a.uid)) != -1) {
           var element = this.ranking.find(i => i.uid === a.uid);
           element.total += 1;
-          if(!element.name.includes(a.nombre)){
-            element.name = element.name + ", "+a.nombre;
+          if (!element.name.includes(a.nombre)) {
+            element.name = element.name + ", " + a.nombre;
           }
-          if(!element.nit.includes(a.nit)){
-            element.nit = element.nit + ", "+a.nit;
+          if (!element.nit.includes(a.nit)) {
+            element.nit = element.nit + ", " + a.nit;
           }
         } else {
-          this.ranking.push({ "uid": a.uid, "name": a.nombre, "total": 1 , "nit": a.nit});
+          this.ranking.push({ "uid": a.uid, "name": a.nombre, "total": 1, "nit": a.nit });
         }
       });
       this.ranking.sort(function (a, b) {
