@@ -19,7 +19,7 @@
       Nombre
     </ion-label>
     <ion-label>
-      Descripcion
+      Sucursal
     </ion-label>
     <ion-label>
       Cantidad
@@ -37,16 +37,16 @@
       <ion-label>
         {{stock.nombre}}
       </ion-label>
-      <ion-label class="descriptionC">
-        {{stock.descripcion}}
+      <ion-label class="sucursalC">
+        {{stock.sucursal}}
       </ion-label>
       <ion-label class="cantidadC">
         {{stock.cantidad}}
       </ion-label>
       <ion-label class="dateC">
-        {{stock.fecha_creacion}}
+        {{stock.vencimiento}}
       </ion-label>
-      <ion-button class= "boton2" (click)="delete(stock.nombre,stock.fecha_creacion)">
+      <ion-button class= "boton2" (click)="delete(stock.nombre,stock.fecha_creacion, stock)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
       <ion-button class= "boton2" (click)="editar(stock.producto,stock.cantidad)">

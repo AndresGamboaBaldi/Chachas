@@ -35,15 +35,14 @@ export class StockPage implements OnInit, OnChanges {
         snapshot.forEach(doc => {
           var vencimiento = this.fecha(doc.data().fecha_creacion);
 
-          objects.push({nombre: doc.data().nombre, descripcion: doc.data().descripcion, proveedor: doc.data().proveedor,
+          objects.push({id:doc.id, nombre: doc.data().nombre, descripcion: doc.data().descripcion, proveedor: doc.data().proveedor,
             cantidad: doc.data().cantidad, precio: doc.data().precio, imagen: doc.data().imagen,
-            fecha_creacion: vencimiento});
+            vencimiento: vencimiento, sucursal: doc.data().sucursal, fecha_creacion: doc.data().fecha_creacion});
         });
       })
       .catch(err => {
         console.log('Error getting documents', err);
       });
-      console.log(objects);
 
     return objects;
   }
@@ -58,7 +57,7 @@ export class StockPage implements OnInit, OnChanges {
     this.router.navigate(['/home']);
   }
 
-  delete(producto, fecha_creacion)
+  async delete(producto, fecha_creacion, stock)
   {
     var ref = firebase.firestore().collection('Comida');
     ref.where('nombre','==',producto).get()
@@ -72,13 +71,38 @@ export class StockPage implements OnInit, OnChanges {
           console.log(doc.id, '=>', doc.data());
           
           if(fecha_creacion == doc.data().fecha_creacion)
-          ref.doc(doc.id).delete();
+          {
+            console.log('Se eliminará: ', doc.id);
+            ref.doc(doc.id).delete();
+            firebase.firestore().collection('Merma').add({
+              nombre: stock.nombre,
+              descripcion: stock.descripcion,
+              cantidad: parseInt(stock.cantidad),
+              precio: parseFloat(stock.precio),
+              imagen: stock.imagen,
+              fecha_creacion: stock.fecha_creacion,
+              sucursal: stock.sucursal
+            });
+          }
         });
       })
       .catch(err => {
         console.log('Error getting documents', err);
       });
-    this.stocks = this.llenado();
+
+      let sfRef = firebase.firestore().collection('Sucursales');
+    
+      await sfRef.get().then(collections => {
+      collections.forEach(collection => {
+        if(collection.data().name == stock.sucursal)
+        {
+          console.log('Found subcollection with id:', collection.id);
+          firebase.firestore().collection('Invetario').doc('comida').collection(collection.id).doc(stock.id).delete();
+        }
+    });
+    });
+
+    this.stocks = await this.llenado();
   }
 
   editar( producto, cantidad)
