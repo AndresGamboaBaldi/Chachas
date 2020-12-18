@@ -80,19 +80,6 @@ export class FirestoreService {
       );
   }
 
-  public getProducts() {
-    return this.productsCollection.snapshotChanges()
-      .pipe(
-        map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as Product;
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          })
-        )
-      );
-  }
-
   getProductID(id: string) {
     this.product = this.angularFirestore.doc<Product>(`Comida/${id}`);
     return this.product.snapshotChanges().pipe(map(action => {
@@ -113,17 +100,3 @@ export class FirestoreService {
     return this.angularFirestore.collection(collection).doc(id).update(data);
   }
 }
-
-/* getProductoSucursal(id: string) {
-    this.productsCollection = this.angularFirestore.collection<Product>(`Inventario/comida/${id}/`);
-    return this.productsCollection.snapshotChanges()
-      .pipe(
-        map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as Product;
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          })
-        ) 
-      );
-  }*/
