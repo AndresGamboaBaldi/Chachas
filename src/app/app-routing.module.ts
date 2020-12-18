@@ -40,6 +40,10 @@ const routes: Routes = [
   {
     path: 'rankingclient',
     loadChildren: () => import('./pages/rankingclient/rankingclient.module').then( m => m.RankingclientPageModule)
+  },
+  {
+    path: 'tabs-compras',
+    loadChildren: () => import('./pages/tabs-compras/tabs-compras.module').then( m => m.TabsComprasPageModule)
   }
 
 
