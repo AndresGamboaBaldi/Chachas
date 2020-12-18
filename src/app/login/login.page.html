@@ -1,0 +1,31 @@
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style="text-align: center;">Iniciar Sesión</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+         <ion-label position="floating">Correo electrónico</ion-label>
+         <ion-input type="text" [(ngModel)]="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
+         </ion-item>
+
+      </ion-list>
+
+    </ion-card-content>
+
+    <ion-button class= "entrar" expand="block" shape="round" (click)="login()">Iniciar Sesión</ion-button>
+  </ion-card>
+
+  <div style="padding: 20px; text-align: center;">
+    <a (click)="forgot()">Olvidaste la constraseña?</a>
+   
+  </div>
+
+</ion-content>

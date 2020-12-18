@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align: center;" >Añadir Insumo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-content>
+          
+          <form>
+          <ion-label>CÓDIGO INSUMO</ion-label>
+          <ion-input type="text" placeholder="Ingresar Código" #codigo></ion-input>
+          </form>
+
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+
+          <form>
+          <ion-label>INSUMO</ion-label>
+          <ion-input type="text" placeholder="Nombre Insumo" #insumo></ion-input>
+          </form>
+        </ion-card-content>
+      </ion-card>  
+
+      <ion-card>
+        <ion-card-content>
+         
+          <form>
+          <ion-label>PROVEEDOR</ion-label> 
+          <ion-input type="text" placeholder="Nombre Proveedor" #proveedor></ion-input>
+          </form>
+        </ion-card-content>
+      
+      </ion-card>  
+                        
+      <ion-card>
+        <ion-card-content>
+          
+          <form>
+          <ion-label>CANTIDAD</ion-label>  
+          <ion-input type="number" placeholder="Ingresar Cantidad" #cantidad></ion-input>
+          </form>
+
+        </ion-card-content>
+      </ion-card>
+  
+      <ion-card>
+        <ion-card-content>
+          
+          <form>
+          <ion-label>LINK IMAGEN</ion-label>  
+          <ion-input type="text" placeholder="Ingresar Link" #imagen></ion-input>
+          </form>
+
+        </ion-card-content>
+      </ion-card>
+
+     </ion-col>
+  </ion-row>
+
+  <ion-button expand= "block" shape = "round" class="Guardado1" (click)= "saveNewDates(codigo.value, producto.value, proveedor.value, cantidad.value, imagen.value)">Guardar</ion-button>
+  <ion-button expand= "block" shape = "round" class="Retornar1" [routerLink]="['/home']">Salir</ion-button>
+
+
+
+</ion-content>
+
