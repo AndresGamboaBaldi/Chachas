@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>stock</ion-title>
+    <ion-button class= "boton1" color = medium (click)="menu()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+  <ion-button class= "boton1" (click)="anadir()">
+    <ion-icon name="add"></ion-icon>
+  </ion-button>
+</ion-header>
+
+<ion-content id='conteiner'>
+
+  <ion-item>
+    <ion-thumbnail slot="start">
+    </ion-thumbnail>
+    <ion-label>
+      Nombre
+    </ion-label>
+    <ion-label>
+      Descripcion
+    </ion-label>
+    <ion-label>
+      Cantidad
+    </ion-label>
+    <ion-label>
+      Tiempo de vida
+    </ion-label>
+  </ion-item>
+
+  <div *ngFor="let stock of stocks">
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src={{stock.imagen}}>
+      </ion-thumbnail>
+      <ion-label>
+        {{stock.nombre}}
+      </ion-label>
+      <ion-label class="descriptionC">
+        {{stock.descripcion}}
+      </ion-label>
+      <ion-label class="cantidadC">
+        {{stock.cantidad}}
+      </ion-label>
+      <ion-label class="dateC">
+        {{stock.fecha_creacion}}
+      </ion-label>
+      <ion-button class= "boton2" (click)="delete(stock.nombre,stock.fecha_creacion)">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+      <ion-button class= "boton2" (click)="editar(stock.producto,stock.cantidad)">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+</ion-content>

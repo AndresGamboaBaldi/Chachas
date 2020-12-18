@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="mycolor">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-row class="ion-align-items-center" color="mycolor">
+       
+      <ion-col size="1" >
+        <img src="assets/img/5.png"/>
+      </ion-col>
+
+      <ion-col size="2">
+        <ion-segment>
+          <ion-card-title color="mycolor">INVENTARIO</ion-card-title>   
+        </ion-segment>          
+      </ion-col>
+    
+    </ion-row> 
+  </ion-toolbar>
+   </ion-header>
+
+   
+
+<ion-content color= "mycolor" >
+  <ion-grid fixed>
+    <ion-row>
+        <ion-segment>
+          <ion-segment-button value="anadir" (click)="home_receta()">
+            <ion-label>PRODUCTOS</ion-label>
+          </ion-segment-button>
+          
+          <ion-segment-button value="anadirin" (click)="anadirin()">
+            <ion-label>AÑADIR INSUMO</ion-label>
+          </ion-segment-button>
+
+            <ion-segment-button value="stock" (click)="stock()">
+              <ion-label>STOCK</ion-label>
+            </ion-segment-button>
+
+            <ion-segment-button value="register" (click)="registrar()">
+               <ion-label>REGISTRO</ion-label>
+             </ion-segment-button>
+
+             <ion-segment-button value="logout" (click)="logout()">
+              <ion-label>SALIR</ion-label>
+            </ion-segment-button>
+
+             
+        </ion-segment>
+
+        <ion-card>
+          <img src="assets/img/1.jpg"/>
+          <ion-card-header>
+            <ion-card-title>Dulce de leche</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>
+              Endulcemos la vida de los clientes!
+            </p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <img src="assets/img/2.jpg"/>
+          <ion-card-header>
+            <ion-card-title>¿Dulce o salada?</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>
+              Todo para satisfacer a la población!
+            </p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <img src="assets/img/4.jpg"/>
+          <ion-card-header>
+            <ion-card-title>La mejores empanadas</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>
+              Listas para combinar las pasiones de todos los clientes!
+            </p>
+          </ion-card-content>
+        </ion-card>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

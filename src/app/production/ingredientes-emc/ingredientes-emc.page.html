@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>INGREDIENTES EMPANADA DE CARNE </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id='conteiner'>
+  <ion-radio-group value="biff">
+    
+
+    <ion-item>
+      <ion-label>Insumos Necesarios</ion-label>
+      
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-item>
+    <ion-thumbnail slot="start">
+    </ion-thumbnail>
+    <ion-label>
+     Insumo
+    </ion-label>
+    <ion-label>
+      Descripcion
+    </ion-label>
+    <ion-label>
+      stock
+    </ion-label>
+    <ion-label>
+      stockMinimo
+    </ion-label>
+  </ion-item>
+ <div *ngFor="let stock of stocks">
+  <ion-item>
+    <ion-thumbnail slot="start">
+      <img src={{stock.img}}>
+    </ion-thumbnail>
+    <ion-label>
+      {{stock.insumo}}
+    </ion-label>
+    <ion-label class="descriptionC">
+      {{stock.descripcion}}
+    </ion-label>
+    <ion-label class="cantidadC">
+      {{stock.unidad}}
+    </ion-label>
+    <ion-label class="dateC">
+      {{stock.stock}}
+    </ion-label>
+   
+  </ion-item>
+ </div>
+</ion-content>

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>RECETA EMPANADA DE CARNE</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  
+
+  <ion-item>
+    <ion-label>Nombre: </ion-label>
+    <ion-input [(ngModel)]="tareaEditando.nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Cantidad: </ion-label>
+    <ion-input [(ngModel)]="tareaEditando.cantidad"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Fecha: </ion-label>
+    
+    <ion-input [(ngModel)]="tareaEditando.fecha"></ion-input>
+  </ion-item>
+  
+  
+  <ion-button class= "guarda" (click)="clicBotonInsertar()">Guardar Receta</ion-button>
+  <ion-button class="retornar" shape="round" [routerLink]="['/home-receta']">Salir</ion-button>
+
+</ion-content>
+
