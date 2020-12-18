@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Clientes</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="full">
+    <ion-searchbar animated (ionChange)="buscar($event)"></ion-searchbar>
+  </ion-item>
+  <ion-card
+    *ngFor="let data of ranking | filtro: textoBuscar "
+    class="productcard"
+  >
+    <ion-card-header>
+      <ion-card-title color="black">
+        Nombres Utilizados: {{ data.name }}
+        <br />
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Compras totales: {{data.total}}
+      <br />
+      NIT utilizado: {{data.nit}}
+      <br />
+      UID: {{data.uid}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

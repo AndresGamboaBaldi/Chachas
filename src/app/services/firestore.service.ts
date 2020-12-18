@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Sale } from 'src/app/models/sale.interface';
 import { map } from 'rxjs/operators';
 import { Product } from "../models/product.interface";
+import { Cliente } from 'src/app/models/client.interface';
 
 @Injectable({
   providedIn: "root",
@@ -12,9 +13,10 @@ export class FirestoreService {
   private salesCollection: AngularFirestoreCollection<Sale>;
   private productsCollection: AngularFirestoreCollection<Product>;
   private product: AngularFirestoreDocument<Product>;
-
+  private clientsCollection: AngularFirestoreCollection<Cliente>;
   constructor(private angularFirestore: AngularFirestore) {
     this.salesCollection = angularFirestore.collection<Sale>('Pedidos');
+    this.clientsCollection = angularFirestore.collection<Product>('Cliente');
   }
   
   public insertSucursal( latitud :number, longitud: number, nombre :string, direccion :string, telefono :number, horario :string, imagen :string){
@@ -80,12 +82,13 @@ export class FirestoreService {
       );
   }
 
-  public getProducts() {
-    return this.productsCollection.snapshotChanges()
+  
+  public getAllClientes() {
+    return this.clientsCollection.snapshotChanges()
       .pipe(
         map(actions =>
           actions.map(a => {
-            const data = a.payload.doc.data() as Product;
+            const data = a.payload.doc.data() as Cliente;
             const id = a.payload.doc.id;
             return { id, ...data };
           })
@@ -113,17 +116,3 @@ export class FirestoreService {
     return this.angularFirestore.collection(collection).doc(id).update(data);
   }
 }
-
-/* getProductoSucursal(id: string) {
-    this.productsCollection = this.angularFirestore.collection<Product>(`Inventario/comida/${id}/`);
-    return this.productsCollection.snapshotChanges()
-      .pipe(
-        map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as Product;
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          })
-        ) 
-      );
-  }*/
