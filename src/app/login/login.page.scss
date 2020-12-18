@@ -1,0 +1,29 @@
+ion-toolbar {
+  --background: #f6d83c;
+  color: white;
+}
+
+
+.titles{
+  // width: max-content;
+  width: 100%;
+  text-align: center;
+   // font-family: Arial, Helvetica, sans-serif;
+  font-style: italic;
+  size: 16pt;
+  color: white;
+   // -webkit-text-stroke: 1px white;
+ }
+ .btn1 {
+  --background: #ff8c00c4;
+  color: white;
+  -webkit-text-stroke: 1px white;
+
+  // font-size: 12px;
+ }
+.btn2 {
+  --background: #f6d83c;
+  color: white;
+  -webkit-text-stroke: 1px white;
+
+}
