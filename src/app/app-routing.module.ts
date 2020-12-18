@@ -32,7 +32,16 @@ const routes: Routes = [
   {
     path: 'saleslist',
     loadChildren: () => import('./pages/saleslist/saleslist.module').then( m => m.SaleslistPageModule)
+  },
+  {
+    path: 'clientrank',
+    loadChildren: () => import('./pages/rankingclient/rankingclient.module').then( m => m.RankingclientPageModule)
+  },
+  {
+    path: 'rankingclient',
+    loadChildren: () => import('./pages/rankingclient/rankingclient.module').then( m => m.RankingclientPageModule)
   }
+
 
 ];
 

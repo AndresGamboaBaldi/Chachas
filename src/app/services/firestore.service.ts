@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Sale } from 'src/app/models/sale.interface';
 import { map } from 'rxjs/operators';
 import { Product } from "../models/product.interface";
+import { Cliente } from 'src/app/models/client.interface';
 
 @Injectable({
   providedIn: "root",
@@ -12,9 +13,10 @@ export class FirestoreService {
   private salesCollection: AngularFirestoreCollection<Sale>;
   private productsCollection: AngularFirestoreCollection<Product>;
   private product: AngularFirestoreDocument<Product>;
-
+  private clientsCollection: AngularFirestoreCollection<Cliente>;
   constructor(private angularFirestore: AngularFirestore) {
     this.salesCollection = angularFirestore.collection<Sale>('Pedidos');
+    this.clientsCollection = angularFirestore.collection<Product>('Cliente');
   }
   
   public insertSucursal( latitud :number, longitud: number, nombre :string, direccion :string, telefono :number, horario :string, imagen :string){
@@ -73,6 +75,20 @@ export class FirestoreService {
         map(actions =>
           actions.map(a => {
             const data = a.payload.doc.data() as Sale;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
+  
+  public getAllClientes() {
+    return this.clientsCollection.snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as Cliente;
             const id = a.payload.doc.id;
             return { id, ...data };
           })
