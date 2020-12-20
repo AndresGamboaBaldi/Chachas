@@ -21,11 +21,14 @@
       <ion-card-title color="black">Total: {{ sale.total }} Bs.</ion-card-title>
       <ion-card-subtitle color="black">Cliente: {{ sale.usuario }}</ion-card-subtitle>
       <ion-card-subtitle color="black">NIT: {{ sale.nit }}</ion-card-subtitle>
-      <ion-card-subtitle color="black"> {{ sale.fechahorapedido }}</ion-card-subtitle>
       <ion-card-subtitle color="black">
         Fecha: {{ sale.fechahorapedido.toDate()| date:'dd' }}/{{ sale.fechahorapedido.toDate() | date:'MM'}}/{{ sale.fechahorapedido.toDate() | date: 'yyyy'}}
       </ion-card-subtitle>
+      <ion-card-subtitle color="black">Pedido: {{ sale.pedido }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">Moto: {{ sale.moto }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">Estado: {{ sale.estado }}</ion-card-subtitle>
       <ion-card-subtitle color="black">Telefono: {{ sale.telefono }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">Detalle: {{ sale.detalle }}</ion-card-subtitle>
       <ion-card-subtitle color="black">Productos</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content *ngIf="isInDate(sale.fechahorapedido.toDate())">

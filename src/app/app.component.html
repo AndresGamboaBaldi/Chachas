@@ -31,51 +31,13 @@
             <ion-label>Clientes</ion-label>
           </ion-item>
         </ion-menu-toggle>
-          <ion-item lines="none"  (click)="isCompras === 1 ? isCompras = 0 : isCompras = 1" >
+        <ion-menu-toggle>
+          <ion-item routerLink="/tabs-compras/ofertas">
             <ion-icon name="file-tray-outline" slot="start"></ion-icon>
             <ion-label>Compras</ion-label>
-            <ion-icon slot="end" [name]="isCompras? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
-          </ion-item>   
-        <ion-menu-toggle auto-hide="false" routerLink="/pending">
-          <ion-list lines="none">
-          <ion-item menuclose [hidden]="!isCompras" menuClose class="sub-menu" >
-            <ion-icon name="mail" slot="start"></ion-icon>
-            <ion-label>Ofertas</ion-label>
           </ion-item>
-        </ion-list>
         </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="false" routerLink="/accepted">
-          <ion-list lines="none">
-          <ion-item menuclose [hidden]="!isCompras" menuClose class="sub-menu" >
-            <ion-icon name="paper-plane" slot="start"></ion-icon>
-            <ion-label>Ofertas en Proceso</ion-label>
-          </ion-item>
-        </ion-list>
-        </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="false" routerLink="/rejected">
-          <ion-list lines="none">
-          <ion-item menuclose [hidden]="!isCompras" menuClose class="sub-menu" >
-            <ion-icon name="trash" slot="start"></ion-icon>
-            <ion-label>Ofertas Rechazadas</ion-label>
-          </ion-item>
-        </ion-list>
-        </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="false" routerLink="/finalized">
-          <ion-list lines="none">
-          <ion-item menuclose [hidden]="!isCompras" menuClose class="sub-menu" >
-            <ion-icon name="archive" slot="start"></ion-icon>
-            <ion-label>Historial de Compras</ion-label>
-          </ion-item>
-        </ion-list>
-        </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="false" routerLink="/supplier">
-          <ion-list lines="none">
-          <ion-item menuclose [hidden]="!isCompras" menuClose class="sub-menu" >
-            <ion-icon name="person-circle" slot="start"></ion-icon>
-            <ion-label>Proveedores</ion-label>
-          </ion-item>
-        </ion-list>
-        </ion-menu-toggle>
+     
 
 
       </ion-list>

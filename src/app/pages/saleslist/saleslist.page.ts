@@ -23,8 +23,6 @@ export class SaleslistPage implements OnInit {
   constructor(public saleslistService: FirestoreService) { }
 
   ngOnInit() {
-    //this.initialdate = new Date();
-    //this.lastdate = new Date();
     this.getAllSales();
   }
 
@@ -32,7 +30,8 @@ export class SaleslistPage implements OnInit {
     this.saleslistService.getSales().subscribe(sales => {
       this.sales = sales;
       this.getAllProducts();
-    })
+    });
+    console.log(this.products);
   }
 
   getAllProducts(): void {
@@ -50,6 +49,6 @@ export class SaleslistPage implements OnInit {
   getProduct(id: string): void {
     this.saleslistService.getProductID(id).subscribe(product => {
       this.products.set(id.toString(), product);
-    })
+    });
   }
 }

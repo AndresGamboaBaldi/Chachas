@@ -174,8 +174,9 @@ export class MapsPage implements OnInit {
     })
   }
   async uploadDone() {
+    this.registerSucursal();
     const alert = await this.alertCtrl.create({
-      message: "Image uploaded 😊",
+      message: "Sucursal Registrada! 😊",
       buttons: ["Ok"],
     });
     await alert.present();

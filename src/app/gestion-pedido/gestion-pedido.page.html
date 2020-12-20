@@ -9,8 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
-    <ion-list>
+<ion-content class="content1">
+    <ion-list >
       <ion-card>
         <ion-item> 
           <ion-avatar item-start>
@@ -39,7 +39,7 @@
             <ion-list>
               <ion-card-subtitle><b>Productos: </b></ion-card-subtitle>
               <ion-item *ngFor="let producto of productos">
-                <ion-card-subtitle>{{producto.id}}</ion-card-subtitle>
+                <ion-card-subtitle>{{producto.cantidad}} {{producto.id}}</ion-card-subtitle>
               </ion-item> 
             </ion-list>
         </ion-card-content>

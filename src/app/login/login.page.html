@@ -1,11 +1,14 @@
-<ion-header>
+<ion-app>
+<ion-header >
   <ion-toolbar>
-    <ion-title>Bienvenido a Las Chachas!!</ion-title>
+    <ion-row>
+      <ion-title class="titles"><b>Bienvenido a Las Chachas!</b></ion-title>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card id = "logincard">
+<ion-content style="--background: #f5f5f5" >
+  <ion-card id = "logincard" >
     <ion-card-content>
       <ion-item>
         <ion-input [(ngModel)]="user.email" placeholder="youremail@gmail.com"></ion-input>
@@ -24,3 +27,4 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
+</ion-app>
