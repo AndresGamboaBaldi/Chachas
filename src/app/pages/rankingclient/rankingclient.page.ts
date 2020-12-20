@@ -14,7 +14,8 @@ export class RankingclientPage implements OnInit {
   public ranking = Array<{ uid: string, name: string, totalsale: number, nit: string, totalspent: number }>();
   public initialdate: Date;
   public lastdate: Date;
-  public fundate;
+  public fundate: Date;
+  public sortby;
   textoBuscar: '';
   minSpent: 0;
   minSale: 0;
@@ -25,19 +26,20 @@ export class RankingclientPage implements OnInit {
   }
   term: string;
 
+  getSortingMethod() {
+    return this.sortby; //0 for Total Compras - 1 for Total Gastado
+  }
+
   getAllClients(): void {
     this.ranking = [];
     this.dataApis.getAllClientes().subscribe(products => {
       this.products = products;
       this.products.forEach(a => {
-        // this.fundate = a.fecha;
-        //console.log(">> "+ this.fundate.toDate());
-
         if (this.isInDate(a.fecha.toDate())) {
           if ((this.ranking.findIndex(i => i.uid === a.uid)) != -1) {
             var element = this.ranking.find(i => i.uid === a.uid);
             element.totalsale += 1;
-            element.totalspent+=a.total;
+            element.totalspent += a.total;
             if (!element.name.includes(a.nombre)) {
               element.name = element.name + ", " + a.nombre;
             }
@@ -45,12 +47,33 @@ export class RankingclientPage implements OnInit {
               element.nit = element.nit + ", " + a.nit;
             }
           } else {
-            this.ranking.push({ "uid": a.uid, "name": a.nombre, "totalsale": 1, "nit": a.nit, "totalspent":a.total });
+            this.ranking.push({ "uid": a.uid, "name": a.nombre, "totalsale": 1, "nit": a.nit, "totalspent": a.total });
           }
         }
       });
-      this.sortlist(this.ranking,this.sortby);
+      if (this.sortby == 0) {
+        this.ranking.sort(function (a, b) {
+          if (a.totalsale > b.totalsale) {
+            return -1;
+          }
+          if (a.totalsale < b.totalsale) {
+            return 1;
+          }
 
+          return 0;
+        });
+      }
+      if (this.sortby == 1) {
+        this.ranking.sort(function (a, b) {
+            if (a.totalspent > b.totalspent) {
+              return -1;
+            }
+            if (a.totalspent < b.totalspent) {
+              return 1;
+            }
+          return 0;
+        });
+      }
     });
   }
   buscar(event) {
@@ -59,30 +82,6 @@ export class RankingclientPage implements OnInit {
 
   setMinSpent(event) {
     this.minSpent = event.detail.value;
-  }
-
-  sortlist(list: Array<Object>, sortby:number){
-    list.sort(function(a,b){
-      if(sortby == 0){
-        if(a.totalsale < b.totalsale){
-          return 1;
-        }
-        if(a.totalsale > b.totalsale){
-          return -1;
-        }
-      }
-      if(sortby == 1){
-        if(a.totalspent < b.totalspent){
-          return 1;
-        }
-        if(a.totalspent > b.totalspent){
-          return -1;
-        }
-      }
-      
-      return 0;
-    });
-    return list;
   }
 
   isInDate(fecha: Date): boolean {
