@@ -19,3 +19,20 @@ export class FiltroPipe implements PipeTransform {
   }
 
 }
+@Pipe({
+  name: 'minFilter'
+})
+export class FiltroMin implements PipeTransform {
+  transform(arreglo: any [], minSpent: number): any [] {
+    if (!arreglo){
+      return [];
+    }
+    if (!minSpent){
+      return arreglo;
+    }
+    return arreglo.filter(item => {
+      return (item.totalspent >= minSpent
+      );
+    });
+  }
+}

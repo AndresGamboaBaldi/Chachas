@@ -11,12 +11,11 @@ import { Cliente } from 'src/app/models/client.interface';
 })
 export class FirestoreService {
   private salesCollection: AngularFirestoreCollection<Sale>;
-  private productsCollection: AngularFirestoreCollection<Product>;
   private product: AngularFirestoreDocument<Product>;
   private clientsCollection: AngularFirestoreCollection<Cliente>;
   constructor(private angularFirestore: AngularFirestore) {
     this.salesCollection = angularFirestore.collection<Sale>('Pedidos');
-    this.clientsCollection = angularFirestore.collection<Product>('Cliente');
+    this.clientsCollection = angularFirestore.collection<Cliente>('Cliente');
   }
   
   public insertSucursal( latitud :number, longitud: number, nombre :string, direccion :string, telefono :number, horario :string, imagen :string){
