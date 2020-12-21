@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Historial de Compras</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button class="menu" position="floating" menu="main"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list *ngIf="Tareas.length != 0">
+    <div style="display: inline-block;" *ngFor="let item of Tareas">
+      <ion-card class="horizontal-cards" *ngIf="item.data.estado == 'Finalizado';">
+        <ion-item>
+          <ion-label style="text-transform: uppercase;"><b>Estado: {{item.data.estado}}</b></ion-label>
+        </ion-item>
+      
+        <ion-card-content>
+          Decripción: {{item.data.descripcion}}
+        </ion-card-content>
+        <ion-card-content>
+          Encargado: {{item.data.nombreEncargado}}
+        </ion-card-content>
+        <ion-card-content>
+          Email del encargado: {{item.data.emailEncargado}}
+        </ion-card-content>
+        <ion-card-content>
+          Telefono del encargado: {{item.data.telefonoEncargado}}
+        </ion-card-content>
+        <ion-item>
+          <ion-label><b>Productos:</b></ion-label>
+        </ion-item>
+        <ion-list>
+          <div style="display: inline-block;" *ngFor="let insumo of item.data.insumos">
+            <ion-card class="vertical-cards">
+              <ion-card-content> Producto: {{ insumo.insumo }} </ion-card-content>
+              <ion-card-content> Cantidad: {{ insumo.cantidad }} </ion-card-content>
+              <ion-card-content> Precio: {{ insumo.precioUnitario }} </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-list>
+      </ion-card>
+    </div>
+  </ion-list>
+</ion-content>

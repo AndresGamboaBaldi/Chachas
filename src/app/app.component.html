@@ -1,3 +1,47 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu menuId="main" content-id="main">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item routerLink="/tabs">
+            <ion-icon name="business-outline" slot="start"></ion-icon>
+            <ion-label>Delivery</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+            <ion-label>Inventario</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item routerLink="/saleslist">
+            <ion-icon name="bag-outline" slot="start"></ion-icon>
+            <ion-label>Ventas</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item routerLink="/rankingclient">
+            <ion-icon name="people-outline" slot="start"></ion-icon>
+            <ion-label>Clientes</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item routerLink="/tabs-compras/ofertas">
+            <ion-icon name="file-tray-outline" slot="start"></ion-icon>
+            <ion-label>Compras</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+     
+
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

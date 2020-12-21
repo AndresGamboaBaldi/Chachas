@@ -1,0 +1,32 @@
+
+.productcard{
+    background-color: whitesmoke;
+    border-style: outset;
+    padding: 1em;
+}
+
+ion-button{
+    --background: #37781f;
+    --color:#FFFFFF;
+    margin: auto;
+    display: block;
+    button{
+        color: white;
+    }
+
+    text-align: center;
+}
+
+ion-item{
+    --background:#fdf9d6;
+    margin: auto;
+    display: block;
+    &.dropdown{
+        --background: #78751f;
+        color: white;
+    }
+}
+ion-toolbar {
+    --background: #f6d83c;
+    color: white;
+  }

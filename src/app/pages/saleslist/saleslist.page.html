@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>VENTAS</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Desde</ion-label>
+    <ion-datetime placeholder="Select Date" [(ngModel)]="initialdate"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Hasta</ion-label>
+    <ion-datetime placeholder="Select Date" [(ngModel)]="lastdate"></ion-datetime>
+  </ion-item>
+  <ion-card *ngFor="let sale of sales">
+    <ion-card-header *ngIf="isInDate(sale.fechahorapedido.toDate())">
+      <ion-card-title color="black">Total: {{ sale.total }} Bs.</ion-card-title>
+      <ion-card-subtitle color="black">Cliente: {{ sale.usuario }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">NIT: {{ sale.nit }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">
+        Fecha: {{ sale.fechahorapedido.toDate()| date:'dd' }}/{{ sale.fechahorapedido.toDate() | date:'MM'}}/{{ sale.fechahorapedido.toDate() | date: 'yyyy'}}
+      </ion-card-subtitle>
+      <ion-card-subtitle color="black">Pedido: {{ sale.pedido }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">Moto: {{ sale.moto }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">Estado: {{ sale.estado }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">Telefono: {{ sale.telefono }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">Detalle: {{ sale.detalle }}</ion-card-subtitle>
+      <ion-card-subtitle color="black">Productos</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content *ngIf="isInDate(sale.fechahorapedido.toDate())">
+      <ion-row *ngFor="let product of sale.productos">
+        <ion-col *ngIf="products.get(product.id)!=null">{{ products.get(product.id).nombre }}: {{ product.cantidad }}</ion-col>
+        <ion-col *ngIf="products.get(product.id)!=null">Precio unitario: {{ products.get(product.id).precio }} Bs.</ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
