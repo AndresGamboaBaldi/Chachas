@@ -2,7 +2,7 @@ export interface Cliente
 {
     nombre?: string;
     total?: number;
-    fecha?: Date,
+    fecha?: firebase.default.firestore.Timestamp,
     uid?:string;
     nit?:string;
 
